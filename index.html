@@ -6,7 +6,7 @@
 <title>Sabbir Weds Shirin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap&family=Great+Vibes&family=Allura" rel="stylesheet">
 <style>
   /* ============ TOKENS ============ */
   :root{
@@ -38,7 +38,7 @@
   }
 
   h1,h2,h3{margin:0; font-weight:500;}
-  .script{font-family:'Parisienne', cursive; font-weight:400;}
+  .script{font-family:'Great Vibes', cursive; font-weight:400;}
   .eyebrow{
     font-family:'Cinzel', serif;
     letter-spacing:.28em;
@@ -85,6 +85,8 @@
     width:min(78vw, 340px);
     height:min(52vw, 226px);
     filter:drop-shadow(0 25px 45px rgba(0,0,0,.5));
+    margin: auto;
+
   }
   .envelope-body{
     position:absolute; inset:0;
@@ -114,7 +116,7 @@
     display:flex; align-items:center; justify-content:center;
   }
   .envelope.open .envelope-card{ transform:translateY(-58%); }
-  .envelope-card span{ font-family:'Parisienne', cursive; color:var(--forest); font-size:1.4rem; }
+  .envelope-card span{ font-family:'Great Vibes', cursive; color:var(--forest); font-size:1.4rem; }
 
   .seal{
     position:absolute; left:50%; top:60%; transform:translate(-50%,-50%);
@@ -204,6 +206,7 @@
     border-radius: 8px;
     border-color: #b08d57;
     border-width: 2px;
+    padding:5px 3px 3px 5px;
     border-style: dotted;
   }
   .center{ text-align:center; }
@@ -349,6 +352,10 @@
   #anonThanks.show{ display:block; }
   #anonThanks .script{ font-size:2.4rem; color:var(--forest); }
 
+  button{
+    border-radius: 4px;
+  }
+  
   /* ============ RESPONSIVE ============ */
   @media (max-width:760px){
     .details-grid{ grid-template-columns:1fr; }
@@ -412,7 +419,7 @@
           <div class="icon">✦</div>
           <h3>Ceremony</h3>
           <p>1:30 pm in the early afternoon</p>
-          <small>Followed by Jumma Salah.</small>
+          <small>Followed by Jummah Salah.</small>
         </div>
         <div class="detail-card reveal">
           <div class="icon">✦</div>
@@ -468,6 +475,7 @@
     <div class="section-inner center">
       <p class="eyebrow reveal">A Few Favourites</p>
       <h2 class="section-title reveal">Our Moments</h2>
+      <p class="reveal script">Will be captured soon ..... you are invited to be a part of it. 😊</p>
       <div class="divider reveal" aria-hidden="true"></div>
     </div>
     <div class="gallery section-inner">
@@ -482,8 +490,8 @@
       <div class="divider reveal" aria-hidden="true"></div>
 
       <div class="mode-toggle" role="tablist">
-        <button type="button" class="mode-btn active" data-target="rsvpForm" role="tab" aria-selected="true">Response</button>
-        <button type="button" class="mode-btn" data-target="anonForm" role="tab" aria-selected="false">Anonymous Message</button>
+        <button type="button" class="mode-btn active" data-target="rsvpForm" role="tab" aria-selected="true" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">Response</button>
+        <button type="button" class="mode-btn" data-target="anonForm" role="tab" aria-selected="false" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Anonymous Message</button>
       </div>
 
       <form id="rsvpForm" class="reveal" novalidate>
