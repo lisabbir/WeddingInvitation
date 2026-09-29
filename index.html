@@ -684,7 +684,8 @@ form.addEventListener('submit', async function(e){
     phone: contact.type === 'phone' ? contact.value : '',
     accepted: attending,
     name: name,
-    message: 'Guests: ' + guests + (note ? ' | ' + note : '')
+    guests: attending ? guests : 0,
+    message: note
   };
 
   submitBtn.disabled = true;
