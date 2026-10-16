@@ -913,7 +913,8 @@
      The wedding card links here with ?from=wedding. We remember that for this tab, then
      strip it from the address bar so a copied/shared link never shows the back option. */
   var FROM_KEY = 'fromWedding';
-  var fromWedding = new URLSearchParams(location.search).get('from') === 'wedding';
+  var params = new URLSearchParams(location.search);
+  var fromWedding = params.get('from') === 'wedding';
   try {
     if(fromWedding){ sessionStorage.setItem(FROM_KEY, '1'); }
     else { fromWedding = sessionStorage.getItem(FROM_KEY) === '1'; }
@@ -923,7 +924,9 @@
   }
   document.getElementById('weddingBack').hidden = !fromWedding;
 
-  var lang = 'en';  // English is always the default
+  // English by default; keeps the language chosen on the wedding card (?lang=bn)
+  var lang = params.get('lang') === 'bn' ? 'bn' : 'en';
+  var weddingLink = document.querySelector('#weddingBack a');
 
   function t(key){ return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
   var BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
@@ -949,6 +952,7 @@
     document.documentElement.lang = lang;
     document.title = t('title');
     updateLangBtn();
+    weddingLink.href = 'index.html?lang=' + lang;
 
     document.querySelectorAll('[data-i18n]').forEach(function(el){
       el.textContent = t(el.getAttribute('data-i18n'));

@@ -553,7 +553,7 @@
       <!-- <button class="calendar-btn reveal" id="addToCalendar">Add to Calendar</button> -->
 
       <p class="reception-note reveal" data-i18n="recNote">You are also warmly invited to our Wedding Reception.</p>
-      <a class="calendar-btn reveal" href="reception.html?from=wedding" data-i18n="recBtn">View Reception Invitation</a>
+      <a class="calendar-btn reveal" id="receptionLink" href="reception.html?from=wedding" data-i18n="recBtn">View Reception Invitation</a>
     </div>
   </section>
 
@@ -858,7 +858,16 @@
     }
   };
 
-  var lang = 'en';  // English is always the default
+  // English by default; keeps the language chosen on the reception card (?lang=bn),
+  // then strips it from the address bar so shared links stay clean
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang') === 'bn' ? 'bn' : 'en';
+  if(params.has('lang') && history.replaceState){
+    params.delete('lang');
+    var qs = params.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+  }
+  var receptionLink = document.getElementById('receptionLink');
 
   function t(key){ return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
   var BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
@@ -884,6 +893,7 @@
     document.documentElement.lang = lang;
     document.title = t('title');
     updateLangBtn();
+    receptionLink.href = 'reception.html?from=wedding&lang=' + lang;
 
     document.querySelectorAll('[data-i18n]').forEach(function(el){
       el.textContent = t(el.getAttribute('data-i18n'));
