@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap&family=Great+Vibes&family=Allura" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Galada&display=swap" rel="stylesheet">
 <style>
   /* ============ TOKENS ============ */
   :root{
@@ -116,7 +117,10 @@
     display:flex; align-items:center; justify-content:center;
   }
   .envelope.open .envelope-card{ transform:translateY(-58%); }
-  .envelope-card span{ font-family:'Great Vibes', cursive; color:var(--forest); font-size:1.4rem; }
+  .envelope-card span{ color:var(--forest); font-size:1.4rem; }
+
+  html[lang="bn"] .envelope-card span{ font-family:'Galada','Tiro Bangla',cursive; }
+  html[lang="en"] .envelope-card span{ font-family:'Great Vibes',cursive; }
 
   .seal{
     position:absolute; left:50%; top:60%; transform:translate(-50%,-50%);
@@ -356,6 +360,93 @@
     border-radius: 4px;
   }
   
+  /* ============ CELEBRATION SCROLLBAR ============ */
+  html{ scrollbar-width:thin; scrollbar-color:var(--rose-deep) var(--forest-dark); }  /* Firefox */
+  ::-webkit-scrollbar{ width:12px; height:12px; }
+  ::-webkit-scrollbar-track{
+    background:
+      radial-gradient(circle, rgba(216,190,140,.45) 1px, transparent 1.5px) 0 0/12px 14px,
+      var(--forest-dark);
+    border-left:1px solid rgba(216,190,140,.25);
+  }
+  ::-webkit-scrollbar-thumb{
+    background:linear-gradient(180deg, var(--gold-light), var(--rose) 50%, var(--gold));
+    border-radius:10px;
+    border:2px solid var(--forest-dark);
+    box-shadow:inset 0 0 6px rgba(255,255,255,.45);
+  }
+  ::-webkit-scrollbar-thumb:hover{
+    background:linear-gradient(180deg, #e8d2a4, var(--rose-deep) 50%, var(--gold-light));
+  }
+
+  /* ============ LANGUAGE SWITCH ============ */
+  .lang-btn{
+    position:fixed; top:14px; right:14px; z-index:300;
+    background:rgba(251,246,236,.92); color:var(--forest);
+    border:1px solid var(--gold); padding:8px 16px;
+    font-family:'Cinzel','Tiro Bangla',serif; font-size:.78rem; letter-spacing:.08em;
+    box-shadow:0 4px 12px rgba(0,0,0,.2); transition:.3s var(--ease);
+  }
+  .lang-btn.waiting{ opacity:0; visibility:hidden; pointer-events:none; }
+  .lang-btn{ transition:opacity .6s var(--ease), background .3s var(--ease), color .3s var(--ease); }
+  .lang-btn:hover{ background:var(--forest); color:var(--ivory); }
+
+  /* ============ FAMILIES ============ */
+  .family-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:28px; margin-top:48px;
+  }
+  .family-card{
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    background:var(--forest); color:var(--ivory); border:none; border-radius:6px;
+    padding:38px 20px; position:relative; box-shadow:var(--paper-shadow);
+    transition:transform .35s var(--ease);
+  }
+  .family-card::before{
+    content:""; position:absolute; inset:8px; border:1px solid rgba(216,190,140,.35);
+    border-radius:6px; pointer-events:none;
+  }
+  .family-card:hover{ transform:translateY(-4px); }
+  .fc-role{ font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold-light); }
+  .fc-name{ font-size:2.4rem; line-height:1.2; }
+  .fc-more{ font-size:.95rem; opacity:.75; font-style:italic; }
+
+  /* ============ MODAL ============ */
+  .modal{ position:fixed; inset:0; z-index:250; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .modal[hidden]{ display:none; }
+  .modal-backdrop{ position:absolute; inset:0; background:rgba(18,35,24,.7); }
+  .modal-card{
+    position:relative; background:var(--ivory); border:1px solid var(--gold);
+    border-radius:8px; padding:40px 30px 32px; width:min(100%,460px); max-height:90vh; overflow:auto;
+    text-align:center; box-shadow:0 30px 60px -10px rgba(0,0,0,.5);
+    animation:modalIn .4s var(--ease);
+  }
+  @keyframes modalIn{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:none;} }
+  .modal-close{
+    position:absolute; top:8px; right:12px; background:none; border:none;
+    font-size:2rem; line-height:1; color:var(--forest);
+  }
+  .modal-name{ font-size:2.4rem; color:var(--forest); line-height:1.25; margin-top:8px; }
+  .fam-list{ margin:0; text-align:left; }
+  .fam-list dt{ font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-top:18px; }
+  .fam-list dd{ margin:4px 0 0; font-size:1.2rem; color:var(--ink); line-height:1.45; }
+  /* ============ BENGALI TYPOGRAPHY ============ */
+
+  html[lang="bn"] body,
+  html[lang="bn"] .field input, html[lang="bn"] .field select, html[lang="bn"] .field textarea{
+    font-family:'Tiro Bangla','Cormorant Garamond',serif;
+  }
+  html[lang="bn"] .script{ font-family:'Galada','Tiro Bangla',cursive; }
+  html[lang="bn"] .eyebrow, html[lang="bn"] .hero-date, html[lang="bn"] .detail-card h3,
+  html[lang="bn"] .count-unit .lbl, html[lang="bn"] .count-unit .num, html[lang="bn"] .t-time,
+  html[lang="bn"] .field label, html[lang="bn"] .mode-btn, html[lang="bn"] .submit-btn,
+  html[lang="bn"] .fc-role, html[lang="bn"] .fam-list dt, html[lang="bn"] .seal,
+  html[lang="bn"] .envelope-wrap p.hint, html[lang="bn"] .monogram, html[lang="bn"] footer .tag{
+    font-family:'Tiro Bangla',serif; letter-spacing:0; text-transform:none;
+  }
+  html[lang="bn"] .hero-sub, html[lang="bn"] .detail-card p, html[lang="bn"] body{ line-height:1.7; }
+  html[lang="bn"] .hero-names{ line-height:1.3; }
+  html[lang="bn"] .radio-row label{ font-family:'Tiro Bangla',serif; }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width:760px){
     .details-grid{ grid-template-columns:1fr; }
@@ -364,12 +455,18 @@
     .t-row{ grid-template-columns:70px 30px 1fr; }
     .t-time{ padding-right:10px; font-size:.72rem; }
   }
+  @media (max-width:560px){
+    .family-grid{ grid-template-columns:1fr; }
+  }
   @media (max-width:460px){
     .radio-row{ flex-direction:column; gap:10px; }
   }
 </style>
 </head>
 <body>
+
+<!-- ============ LANGUAGE SWITCH ============ -->
+<button type="button" class="lang-btn" id="langBtn" aria-label="Switch language">বাংলা</button>
 
 <!-- ============ BACKDROP LEAVES CANVAS ============ -->
 <canvas id="leafCanvas"></canvas>
@@ -378,12 +475,12 @@
 <div id="envelopeStage">
   <div class="envelope-wrap">
     <div class="envelope" id="envelope">
-      <div class="envelope-card"><span>Shirin 💖 Sabbir</span></div>
+      <div class="envelope-card"><span data-i18n="envCard">Shirin 💖 Sabbir</span></div>
       <div class="envelope-body"></div>
       <div class="envelope-flap"></div>
-      <button class="seal" id="sealBtn" aria-label="Break the seal to open your invitation">Open</button>
+      <button class="seal" id="sealBtn" data-i18n="open" data-i18n-aria="sealAria" aria-label="Break the seal to open your invitation">Open</button>
     </div>
-    <p class="hint">Tap the seal to open your invitation</p>
+    <p class="hint" data-i18n="hint">Tap the seal to open your invitation</p>
   </div>
 </div>
 
@@ -391,41 +488,63 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <div class="monogram">S · S</div>
-    <p class="eyebrow reveal">Together with their families</p>
+    <div class="monogram" data-i18n="monogram">S · S</div>
+    <p class="eyebrow reveal" data-i18n="heroEyebrow">Together with their families</p>
     <h1 class="hero-names reveal">
-      <span class="script">Shirin</span><span class="hero-amp script">&amp;</span><span class="script">Sabbir</span>
+      <span class="script" data-i18n="bride">Shirin</span><span class="hero-amp script" data-i18n="amp">&amp;</span><span class="script" data-i18n="groom">Sabbir</span>
     </h1>
-    <p class="hero-sub reveal">joyfully invite you to celebrate the beginning of their forever</p>
-    <p class="hero-date reveal">Friday · October 23 · 2026</p>
+    <p class="hero-sub reveal" data-i18n="heroSub">joyfully invite you to celebrate the beginning of their forever</p>
+    <p class="hero-date reveal" data-i18n="heroDate">Friday · October 23 · 2026</p>
     <div class="scroll-cue" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ FAMILIES ============ -->
+  <section>
+    <div class="section-inner center">
+      <p class="eyebrow reveal" data-i18n="famEyebrow">The Families</p>
+      <h2 class="section-title reveal" data-i18n="famTitle">The Bride &amp; Groom</h2>
+      <div class="divider reveal" aria-hidden="true"></div>
+
+      <div class="family-grid">
+        <button type="button" class="family-card reveal" data-person="bride" aria-haspopup="dialog">
+          <span class="fc-role" data-i18n="roleBride">The Bride</span>
+          <span class="fc-name script" data-fam-name="bride">Shirin</span>
+          <span class="fc-more" data-i18n="tapMore">Tap to view details</span>
+        </button>
+        <button type="button" class="family-card reveal" data-person="groom" aria-haspopup="dialog">
+          <span class="fc-role" data-i18n="roleGroom">The Groom</span>
+          <span class="fc-name script" data-fam-name="groom">Sabbir</span>
+          <span class="fc-more" data-i18n="tapMore">Tap to view details</span>
+        </button>
+      </div>
+    </div>
   </section>
 
   <!-- ============ DETAILS ============ -->
   <section>
     <div class="section-inner center">
-      <p class="eyebrow reveal">The Details</p>
-      <h2 class="section-title reveal">When &amp; Where</h2>
+      <p class="eyebrow reveal" data-i18n="detEyebrow">The Details</p>
+      <h2 class="section-title reveal" data-i18n="detTitle">When &amp; Where</h2>
       <div class="divider reveal" aria-hidden="true"></div>
 
       <div class="details-grid">
         <div class="detail-card reveal">
           <div class="icon">✦</div>
-          <h3>Date</h3>
-          <p>October 23, 2026</p>
-          <small>Friday</small>
+          <h3 data-i18n="dateH">Date</h3>
+          <p data-i18n="dateVal">October 23, 2026</p>
+          <small data-i18n="dateDay">Friday</small>
         </div>
         <div class="detail-card reveal">
           <div class="icon">✦</div>
-          <h3>Wedding Gathering</h3>
-          <p>2:00 PM in the early afternoon</p>
-          <small>Followed by Jummah Salah.</small>
+          <h3 data-i18n="gatherH">Wedding Gathering</h3>
+          <p data-i18n="gatherVal">2:00 PM in the early afternoon</p>
+          <small data-i18n="gatherNote">Followed by Jummah Salah.</small>
         </div>
         <div class="detail-card reveal">
           <div class="icon">✦</div>
-          <h3>Place</h3>
-          <p>Lunch &amp; Celebration to follow.</p>
-          <a href="https://share.google/25DVzkBbDFgZxDX5b" target="_blank" rel="noopener noreferrer"><small>Cafe & Boat Club</small></a>
+          <h3 data-i18n="placeH">Place</h3>
+          <p data-i18n="placeVal">Lunch &amp; Celebration to follow.</p>
+          <a href="https://share.google/25DVzkBbDFgZxDX5b" target="_blank" rel="noopener noreferrer"><small data-i18n="venue">Cafe &amp; Boat Club</small></a>
         </div>
       </div>
 
@@ -436,13 +555,13 @@
   <!-- ============ COUNTDOWN ============ -->
   <section class="countdown-section">
     <div class="section-inner center">
-      <p class="eyebrow reveal">Counting Down</p>
-      <h2 class="section-title reveal">Until We Say &ldquo;Kabul&rdquo;</h2>
+      <p class="eyebrow reveal" data-i18n="cdEyebrow">Counting Down</p>
+      <h2 class="section-title reveal" data-i18n="cdTitle">Until We Say &ldquo;Kabul&rdquo;</h2>
       <div class="countdown" id="countdown">
-        <div class="count-unit"><div class="num" id="cd-days">00</div><div class="lbl">Days</div></div>
-        <div class="count-unit"><div class="num" id="cd-hours">00</div><div class="lbl">Hours</div></div>
-        <div class="count-unit"><div class="num" id="cd-mins">00</div><div class="lbl">Minutes</div></div>
-        <div class="count-unit"><div class="num" id="cd-secs">00</div><div class="lbl">Seconds</div></div>
+        <div class="count-unit"><div class="num" id="cd-days">00</div><div class="lbl" data-i18n="days">Days</div></div>
+        <div class="count-unit"><div class="num" id="cd-hours">00</div><div class="lbl" data-i18n="hours">Hours</div></div>
+        <div class="count-unit"><div class="num" id="cd-mins">00</div><div class="lbl" data-i18n="mins">Minutes</div></div>
+        <div class="count-unit"><div class="num" id="cd-secs">00</div><div class="lbl" data-i18n="secs">Seconds</div></div>
       </div>
     </div>
   </section>
@@ -450,22 +569,22 @@
   <!-- ============ ORDER OF THE DAY ============ -->
   <section>
     <div class="section-inner center">
-      <p class="eyebrow reveal">The Order of the Day</p>
-      <h2 class="section-title reveal">How It Will Unfold</h2>
+      <p class="eyebrow reveal" data-i18n="ordEyebrow">The Order of the Day</p>
+      <h2 class="section-title reveal" data-i18n="ordTitle">How It Will Unfold</h2>
       <div class="divider reveal" aria-hidden="true"></div>
     </div>
     <div class="timeline section-inner">
       <div class="t-row reveal">
-        <div class="t-time">2:00 PM</div><div class="t-dot"></div>
-        <div class="t-body"><h3>Guests Arrive</h3><p>Welcome drinks in the open yard.</p></div>
+        <div class="t-time" data-i18n="t1time">2:00 PM</div><div class="t-dot"></div>
+        <div class="t-body"><h3 data-i18n="t1h">Guests Arrive</h3><p data-i18n="t1p">Welcome drinks in the open yard.</p></div>
       </div>
       <div class="t-row reveal">
-        <div class="t-time">2:15 PM</div><div class="t-dot"></div>
-        <div class="t-body"><h3>Lunch</h3><p>Lunch will be served in the hall room.</p></div>
+        <div class="t-time" data-i18n="t2time">2:15 PM</div><div class="t-dot"></div>
+        <div class="t-body"><h3 data-i18n="t2h">Lunch</h3><p data-i18n="t2p">Lunch will be served in the hall room.</p></div>
       </div>
       <div class="t-row reveal">
-        <div class="t-time">3:30 PM</div><div class="t-dot"></div>
-        <div class="t-body"><h3>Photographs &amp; Meetup</h3><p>Taking photos and meeting everyone.</p></div>
+        <div class="t-time" data-i18n="t3time">3:30 PM</div><div class="t-dot"></div>
+        <div class="t-body"><h3 data-i18n="t3h">Photographs &amp; Meetup</h3><p data-i18n="t3p">Taking photos and meeting everyone.</p></div>
       </div>
     </div>
   </section>
@@ -473,9 +592,9 @@
   <!-- ============ GALLERY ============ -->
   <section>
     <div class="section-inner center">
-      <p class="eyebrow reveal">A Few Favourites</p>
-      <h2 class="section-title reveal">Our Moments</h2>
-      <p class="reveal script">Will be captured soon ..... you are invited to be a part of it. 😊</p>
+      <p class="eyebrow reveal" data-i18n="galEyebrow">A Few Favourites</p>
+      <h2 class="section-title reveal" data-i18n="galTitle">Our Moments</h2>
+      <p class="reveal script" data-i18n="galNote">Will be captured soon ..... you are invited to be a part of it. 😊</p>
       <div class="divider reveal" aria-hidden="true"></div>
     </div>
     <div class="gallery section-inner">
@@ -486,91 +605,329 @@
   <!-- ============ RSVP ============ -->
   <section class="rsvp-section">
     <div class="section-inner center">
-      <p class="eyebrow reveal">You can drop your response here. 😊</p>
+      <p class="eyebrow reveal" data-i18n="rsvpEyebrow">You can drop your response here. 😊</p>
       <div class="divider reveal" aria-hidden="true"></div>
 
       <div class="mode-toggle" role="tablist">
-        <button type="button" class="mode-btn active" data-target="rsvpForm" role="tab" aria-selected="true" style="border-top-right-radius: 0; border-bottom-right-radius: 0;">Response</button>
-        <button type="button" class="mode-btn" data-target="anonForm" role="tab" aria-selected="false" style="border-top-left-radius: 0; border-bottom-left-radius: 0;">Anonymous Message</button>
+        <button type="button" class="mode-btn active" data-target="rsvpForm" role="tab" aria-selected="true" style="border-top-right-radius: 0; border-bottom-right-radius: 0;" data-i18n="tabResponse">Response</button>
+        <button type="button" class="mode-btn" data-target="anonForm" role="tab" aria-selected="false" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" data-i18n="tabAnon">Anonymous Message</button>
       </div>
 
       <form id="rsvpForm" class="reveal" novalidate>
         <div class="field">
-          <label for="guestName">Full Name</label>
-          <input type="text" id="guestName" name="guestName" required placeholder="Your name" />
+          <label for="guestName" data-i18n="fName">Full Name</label>
+          <input type="text" id="guestName" name="guestName" required data-i18n-ph="phName" placeholder="Your name" />
         </div>
         <div class="field">
-          <label for="guestContact">Email / Phone</label>
+          <label for="guestContact" data-i18n="fContact">Email / Phone</label>
           <input type="text" id="guestContact" name="guestContact" required
-                placeholder="you@example.com or +8801XXXXXXXXX" autocomplete="off" />
+                data-i18n-ph="phContact" placeholder="you@example.com or +8801XXXXXXXXX" autocomplete="off" />
         </div>
         <div class="field">
-          <label>Will you be attending?</label>
+          <label data-i18n="fAttend">Will you be attending?</label>
           <div class="radio-row">
-            <label><input type="radio" name="attending" value="yes" checked /> Joyfully Accepts</label>
-            <label><input type="radio" name="attending" value="no" /> Regretfully Declines</label>
+            <label><input type="radio" name="attending" value="yes" checked /> <span data-i18n="yes">Joyfully Accepts</span></label>
+            <label><input type="radio" name="attending" value="no" /> <span data-i18n="no">Regretfully Declines</span></label>
           </div>
         </div>
-        <div class="field">
-          <label for="guestCount">Number of Guests (including you)</label>
+        <!-- <div class="field">
+          <label for="guestCount" data-i18n="fGuests">Number of Guests (including you)</label>
           <select id="guestCount" name="guestCount">
             <option>1</option><option>2</option><option>3</option><option>4</option>
           </select>
-        </div>
+        </div> -->
         <div class="field">
-          <label for="guestMsg">A Note for the Couple</label>
-          <textarea id="guestMsg" name="guestMsg" placeholder="Well wishes, dietary notes, or song requests..."></textarea>
+          <label for="guestMsg" data-i18n="fNote">A Note for the Couple</label>
+          <textarea id="guestMsg" name="guestMsg" data-i18n-ph="phNote" placeholder="Well wishes, dietary notes, or song requests..."></textarea>
         </div>
         <p id="rsvpError" role="alert" style="display:none;color:#8f2f3c;font-size:.95rem;margin:0;"></p>
-        <button type="submit" class="submit-btn">Send Reply</button>
+        <button type="submit" class="submit-btn" data-i18n="sendReply">Send Reply</button>
       </form>
 
       <div id="rsvpThanks">
-        <p class="script">Thank you!</p>
-        <p>Your reply has been recorded. We can't wait to celebrate with you.</p>
+        <p class="script" data-i18n="thanks">Thank you!</p>
+        <p data-i18n="thanksRsvp">Your reply has been recorded. We can't wait to celebrate with you.</p>
       </div>
 
       <form id="anonForm" hidden novalidate>
         <div class="field">
-          <label for="anonMsg">Your Message</label>
+          <label for="anonMsg" data-i18n="fAnon">Your Message</label>
           <textarea id="anonMsg" name="anonMsg" required maxlength="2000"
-                    placeholder="Write something for the couple..."></textarea>
+                    data-i18n-ph="phAnon" placeholder="Write something for the couple..."></textarea>
         </div>
-        <p class="rsvp-note">Your message will be recorded anonymously.</p>
+        <p class="rsvp-note" data-i18n="anonNote">Your message will be recorded anonymously.</p>
         <p id="anonError" role="alert" style="display:none;color:#8f2f3c;font-size:.95rem;margin:0;"></p>
-        <button type="submit" class="submit-btn">Send Message</button>
+        <button type="submit" class="submit-btn" data-i18n="sendMsg">Send Message</button>
       </form>
 
       <div id="anonThanks">
-        <p class="script">Thank you!</p>
-        <p>Your message has been sent.</p>
+        <p class="script" data-i18n="thanks">Thank you!</p>
+        <p data-i18n="thanksAnon">Your message has been sent.</p>
       </div>
     </div>
   </section>
 
   <footer>
-    <p class="script">Shirin &amp; Sabbir</p>
-    <p>October 23, 2026 · <a style="text-decoration: none;" href="https://share.google/25DVzkBbDFgZxDX5b" target="_blank" rel="noopener noreferrer">Cafe & Boat Club</a></p>
+    <p class="script" data-i18n="footNames">Shirin &amp; Sabbir</p>
+    <p><span data-i18n="dateVal">October 23, 2026</span> · <a style="text-decoration: none;" href="https://share.google/25DVzkBbDFgZxDX5b" target="_blank" rel="noopener noreferrer" data-i18n="venue">Cafe &amp; Boat Club</a></p>
     <p class="tag">#Shirin&amp;Sabbir@2026</p>
   </footer>
 
 </main>
 
+<!-- ============ FAMILY POPUP ============ -->
+<div class="modal" id="famModal" hidden>
+  <div class="modal-backdrop" data-close="1"></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="famName">
+    <button type="button" class="modal-close" data-close="1" aria-label="Close">&times;</button>
+    <p class="eyebrow" id="famRole"></p>
+    <h3 class="script modal-name" id="famName"></h3>
+    <div class="divider" aria-hidden="true"></div>
+    <dl class="fam-list">
+      <dt data-i18n="father">Father</dt><dd id="famFather"></dd>
+      <dt data-i18n="mother">Mother</dt><dd id="famMother"></dd>
+      <dt data-i18n="address">Address</dt><dd id="famAddress"></dd>
+    </dl>
+  </div>
+</div>
+
 <script>
 (function(){
   "use strict";
+
+  /* ================= FAMILY DETAILS =================
+     EDIT HERE: full names, parents and addresses (English + Bengali).
+     Values in [square brackets] are placeholders. */
+  var FAMILY = {
+    groom: {
+      name:    { en:'Md. Sabbir Hossain', bn:'মোঃ সাব্বির হোসেন' },
+      father:  { en:'Md. Sanwar Hossain', bn:'মোঃ সানোয়ার হোসেন' },
+      mother:  { en:'Mst. Nazma Khatun', bn:'মোছাঃ নজমা খাতুন' },
+      address: { en:'Tarash, Sirajanj.', bn:'তাড়াশ, সিরাজগঞ্জ' }
+    },
+    bride: {
+      name:    { en:'Shirin Sultana Shathy', bn:'শিরিন সুলতানা সাথী' },
+      father:  { en:'Md. Emdadul Haque', bn:'মোঃ এমদাদুল হক' },
+      mother:  { en:'Nasima Akhter', bn:'নাছিমা আক্তার' },
+      address: { en:'Manikdi, Dhaka Cantonment', bn:'মানিকদি, ঢাকা ক্যান্টনমেন্ট' }
+    }
+  };
+
+  /* ================= TRANSLATIONS ================= */
+  var I18N = {
+    en: {
+      title:'Sabbir Weds Shirin', langBtn:'বাংলা', closeCard:'Close Card',
+      envCard:'Shirin 💖 Sabbir', open:'Open', sealAria:'Break the seal to open your invitation',
+      hint:'Tap the seal to open your invitation',
+      monogram:'S · S', heroEyebrow:'Together with their families',
+      bride:'Shirin', amp:'&', groom:'Sabbir',
+      heroSub:'joyfully invite you to celebrate the beginning of their forever',
+      heroDate:'Friday · October 23 · 2026',
+      famEyebrow:'The Families', famTitle:'The Bride & Groom',
+      roleBride:'The Bride', roleGroom:'The Groom', tapMore:'Tap to view details',
+      father:'Father', mother:'Mother', address:'Address',
+      detEyebrow:'The Details', detTitle:'When & Where',
+      dateH:'Date', dateVal:'October 23, 2026', dateDay:'Friday',
+      gatherH:'Wedding Gathering', gatherVal:'2:00 PM in the early afternoon', gatherNote:'After Jummah Salah.',
+      placeH:'Place', placeVal:'Lunch & Celebration to follow.', venue:'Cafe & Boat Club',
+      cdEyebrow:'Counting Down', cdTitle:'Until We Say “Kabul”',
+      days:'Days', hours:'Hours', mins:'Minutes', secs:'Seconds',
+      ordEyebrow:'The Order of the Day', ordTitle:'How It Will Unfold',
+      t1time:'2:00 PM', t1h:'Guests Arrive', t1p:'Welcome drinks in the open yard.',
+      t2time:'2:15 PM', t2h:'Lunch', t2p:'Lunch will be served in the hall room.',
+      t3time:'3:30 PM', t3h:'Photographs & Meetup', t3p:'Taking photos and meeting everyone.',
+      galEyebrow:'A Few Favourites', galTitle:'Our Moments',
+      galNote:'Will be captured soon ..... you are invited to be a part of it. 😊',
+      rsvpEyebrow:'You can drop your response here. 😊',
+      tabResponse:'Response', tabAnon:'Anonymous Message',
+      fName:'Full Name', phName:'Your name',
+      fContact:'Email / Phone', phContact:'you@example.com or +8801XXXXXXXXX',
+      fAttend:'Will you be attending?', yes:'Joyfully Accepts', no:'Regretfully Declines',
+      fGuests:'Number of Guests (including you)',
+      fNote:'A Note for the Couple', phNote:'Well wishes, dietary notes, or song requests...',
+      sendReply:'Send Reply', sending:'Sending...',
+      thanks:'Thank you!', thanksRsvp:'Your reply has been recorded. We can\'t wait to celebrate with you.',
+      fAnon:'Your Message', phAnon:'Write something for the couple...',
+      anonNote:'Your message will be recorded anonymously.',
+      sendMsg:'Send Message', thanksAnon:'Your message has been sent.',
+      footNames:'Shirin & Sabbir',
+      errName:'Please enter your name.',
+      errContact:'Please enter a valid email address or phone number.',
+      errGeneric:'Sorry, something went wrong. Please try again.',
+      errAnon:'Please write a message.'
+    },
+    bn: {
+      title: 'সাব্বির ও শিরিনের শুভ বিবাহ',
+      langBtn: 'English',
+      closeCard: 'বন্ধ করুন',
+      envCard: 'শিরিন 💖 সাব্বির',
+      open: 'খুলুন',
+      sealAria: 'আমন্ত্রণপত্র খুলতে সিলমোহরে ট্যাপ করুন',
+      hint: 'আমন্ত্রণপত্র খুলতে সিলমোহরে ট্যাপ করুন',
+      monogram: 'শি · সা',
+
+      heroEyebrow: 'উভয় পরিবারের সম্মতিতে',
+      bride: 'শিরিন',
+      amp: 'ও',
+      groom: 'সাব্বির',
+      heroSub: 'আমাদের নতুন জীবনের শুভ সূচনায় আপনার উপস্থিতি ও শুভকামনা একান্তভাবে কামনা করছি',
+      heroDate: 'শুক্রবার · ৮ কার্তিক · ১৪৩৩ বঙ্গাব্দ',
+
+      famEyebrow: 'আমাদের পরিবার',
+      famTitle: 'কনে ও বর',
+      roleBride: 'কনে',
+      roleGroom: 'বর',
+      tapMore: 'বিস্তারিত জানতে ট্যাপ করুন',
+      father: 'পিতা',
+      mother: 'মাতা',
+      address: 'ঠিকানা',
+
+      detEyebrow: 'অনুষ্ঠানের বিবরণ',
+      detTitle: 'তারিখ ও স্থান',
+      dateH: 'তারিখ',
+      dateVal: '২৩ অক্টোবর, ২০২৬',
+      dateDay: 'শুক্রবার',
+      gatherH: 'বিবাহ অনুষ্ঠান',
+      gatherVal: 'দুপুর ২টা',
+      gatherNote: 'জুমার নামাজের পর',
+      placeH: 'স্থান',
+      placeVal: 'মধ্যাহ্নভোজ ও কুশলাদি বিনিময়',
+      venue: 'ক্যাফে অ্যান্ড বোট ক্লাব',
+
+      cdEyebrow: 'সময়ের অপেক্ষা',
+      cdTitle: 'কবুল বলার অপেক্ষায়',
+      days: 'দিন',
+      hours: 'ঘণ্টা',
+      mins: 'মিনিট',
+      secs: 'সেকেন্ড',
+
+      ordEyebrow: 'অনুষ্ঠানের সময়সূচি',
+      ordTitle: 'দিনের আয়োজন',
+      t1time: 'দুপুর ২টা',
+      t1h: 'অতিথিদের আগমন',
+      t1p: 'খোলা আঙিনায় স্বাগত পানীয়ের আয়োজন থাকবে।',
+      t2time: 'দুপুর ২টা ১৫ মিনিট',
+      t2h: 'মধ্যাহ্নভোজ',
+      t2p: 'হলরুমে মধ্যাহ্নভোজের আয়োজন থাকবে।',
+      t3time: 'বিকেল ৩টা ৩০ মিনিট',
+      t3h: 'ছবি তোলা ও সৌহার্দ্য বিনিময়',
+      t3p: 'প্রিয়জনদের সঙ্গে ছবি তোলা ও আনন্দঘন সময় কাটানো।',
+
+      galEyebrow: 'স্মৃতির পাতায়',
+      galTitle: 'আমাদের বিশেষ মুহূর্ত',
+      galNote: 'সামনের দিনগুলোতেই তৈরি হবে আমাদের নতুন স্মৃতি। আপনিও সেই আনন্দের অংশ হতে আমন্ত্রিত। 😊',
+
+      rsvpEyebrow: 'আপনার উপস্থিতি ও শুভেচ্ছা জানিয়ে দিন। 😊',
+      tabResponse: 'উপস্থিতি নিশ্চিত করুন',
+      tabAnon: 'নাম প্রকাশ না করে বার্তা',
+      fName: 'আপনার পূর্ণ নাম',
+      phName: 'আপনার নাম লিখুন',
+      fContact: 'ইমেইল / ফোন নম্বর',
+      phContact: 'you@example.com অথবা +8801XXXXXXXXX',
+      fAttend: 'আপনি কি অনুষ্ঠানে উপস্থিত থাকবেন?',
+      yes: 'সানন্দে উপস্থিত থাকব',
+      no: 'দুঃখিত, উপস্থিত থাকতে পারব না',
+      fGuests: 'মোট অতিথির সংখ্যা (আপনিসহ)',
+      fNote: 'আমাদের জন্য আপনার বার্তা',
+      phNote: 'শুভকামনা, খাবারের বিশেষ চাহিদা কিংবা পছন্দের গানের অনুরোধ...',
+      sendReply: 'উত্তর পাঠান',
+      sending: 'পাঠানো হচ্ছে...',
+      thanks: 'অশেষ ধন্যবাদ!',
+      thanksRsvp: 'আপনার উত্তরটি সংরক্ষণ করা হয়েছে। এই বিশেষ দিনে আপনার সঙ্গে আনন্দ ভাগ করে নেওয়ার অপেক্ষায় রইলাম।',
+
+      fAnon: 'আপনার বার্তা',
+      phAnon: 'আমাদের জন্য মনের কথাটি লিখুন...',
+      anonNote: 'আপনার পরিচয় গোপন রেখেই বার্তাটি সংরক্ষণ করা হবে।',
+      sendMsg: 'বার্তা পাঠান',
+      thanksAnon: 'আপনার সুন্দর বার্তার জন্য ধন্যবাদ!',
+
+      footNames: 'শিরিন ও সাব্বির',
+
+      errName: 'অনুগ্রহ করে আপনার পূর্ণ নাম লিখুন।',
+      errContact: 'অনুগ্রহ করে সঠিক ইমেইল ঠিকানা বা ফোন নম্বর লিখুন।',
+      errGeneric: 'দুঃখিত, একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+      errAnon: 'অনুগ্রহ করে একটি বার্তা লিখুন।'
+    }
+  };
+
+  var lang = 'en';  // English is always the default
+
+  function t(key){ return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key; }
+  var BN_DIGITS = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+  function num(str){
+    return lang === 'bn' ? String(str).replace(/\d/g, function(d){ return BN_DIGITS[d]; }) : String(str);
+  }
+
+  var openPerson = null;
+  var langBtn = document.getElementById('langBtn');
+
+  var cardOpen = false;
+  function updateLangBtn(){
+    if(cardOpen){
+      langBtn.textContent = t('closeCard');
+      langBtn.setAttribute('lang', lang);
+    } else {
+      langBtn.textContent = t('langBtn');
+      langBtn.setAttribute('lang', lang === 'bn' ? 'en' : 'bn');
+    }
+  }
+
+  function applyLang(){
+    document.documentElement.lang = lang;
+    document.title = t('title');
+    updateLangBtn();
+
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      el.textContent = t(el.getAttribute('data-i18n'));
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph')));
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+    });
+    document.querySelectorAll('[data-fam-name]').forEach(function(el){
+      el.textContent = t(el.getAttribute('data-fam-name'));
+    });
+    if(typeof tickCountdown === 'function'){ tickCountdown(); }
+    if(openPerson){ fillModal(openPerson); }
+  }
+
+  langBtn.addEventListener('click', function(){
+    if(cardOpen){ closeInvitation(); return; }
+    lang = (lang === 'en') ? 'bn' : 'en';
+    applyLang();
+  });
 
   /* ---------- Envelope open interaction ---------- */
   var stage = document.getElementById('envelopeStage');
   var envelope = document.getElementById('envelope');
   var sealBtn = document.getElementById('sealBtn');
 
+  var openTimer = null;
   function openInvitation(){
     envelope.classList.add('open');
-    setTimeout(function(){
+    cardOpen = true;
+    langBtn.classList.add('waiting');   // hide while the card is still opening
+    openTimer = setTimeout(function(){
       stage.classList.add('hidden');
       document.body.style.overflow = 'auto';
+      openTimer = setTimeout(function(){   // after the envelope has fully faded out
+        updateLangBtn();
+        langBtn.classList.remove('waiting');
+      }, 1000);
     }, 950);
+  }
+  function closeInvitation(){
+    clearTimeout(openTimer);
+    if(!modal.hidden){ closeModal(); }
+    cardOpen = false;
+    langBtn.classList.remove('waiting');
+    updateLangBtn();
+    window.scrollTo({top:0, behavior:'instant'});
+    document.body.style.overflow = 'hidden';
+    stage.classList.remove('hidden');
+    envelope.classList.remove('open');
   }
   sealBtn.addEventListener('click', openInvitation);
   document.body.style.overflow = 'hidden';
@@ -591,20 +948,56 @@
     revealEls.forEach(function(el){ el.classList.add('in'); });
   }
 
+  /* ---------- Family popup ---------- */
+  var modal = document.getElementById('famModal');
+  var lastFocus = null;
+
+  function fillModal(person){
+    var d = FAMILY[person];
+    document.getElementById('famRole').textContent = t(person === 'bride' ? 'roleBride' : 'roleGroom');
+    document.getElementById('famName').textContent = d.name[lang];
+    document.getElementById('famFather').textContent = d.father[lang];
+    document.getElementById('famMother').textContent = d.mother[lang];
+    document.getElementById('famAddress').textContent = d.address[lang];
+  }
+  function openModal(person){
+    openPerson = person;
+    lastFocus = document.activeElement;
+    fillModal(person);
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    modal.querySelector('.modal-close').focus();
+  }
+  function closeModal(){
+    modal.hidden = true;
+    openPerson = null;
+    document.body.style.overflow = 'auto';
+    if(lastFocus){ lastFocus.focus(); }
+  }
+  document.querySelectorAll('.family-card').forEach(function(card){
+    card.addEventListener('click', function(){ openModal(card.dataset.person); });
+  });
+  modal.addEventListener('click', function(e){
+    if(e.target.closest('[data-close]')){ closeModal(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !modal.hidden){ closeModal(); }
+  });
+
   /* ---------- Countdown ---------- */
-  var WEDDING_DATE = new Date('2026-10-23T16:30:00');
+  var WEDDING_DATE = new Date('2026-10-23T16:00:00');
   var dDays = document.getElementById('cd-days');
   var dHours = document.getElementById('cd-hours');
   var dMins = document.getElementById('cd-mins');
   var dSecs = document.getElementById('cd-secs');
 
-  function pad(n){ return String(n).padStart(2,'0'); }
+  function pad(n){ return num(String(n).padStart(2,'0')); }
 
   function tickCountdown(){
     var now = new Date();
     var diff = WEDDING_DATE - now;
     if(diff <= 0){
-      dDays.textContent = dHours.textContent = dMins.textContent = dSecs.textContent = '00';
+      dDays.textContent = dHours.textContent = dMins.textContent = dSecs.textContent = pad(0);
       return;
     }
     var days = Math.floor(diff / 86400000);
@@ -620,170 +1013,174 @@
   setInterval(tickCountdown, 1000);
 
   /* ---------- Add to calendar (.ics download) ---------- */
-  document.getElementById('addToCalendar').addEventListener('click', function(){
-    var ics = [
-      'BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT',
-      'SUMMARY:Sabbir & Shirin\'s Wedding',
-      'DTSTART:20260912T163000',
-      'DTEND:20260912T230000',
-      'LOCATION: Cafe & Boat Club, ECB Chattar',
-      'DESCRIPTION:Ceremony followed by Jumma Salah.',
-      'END:VEVENT','END:VCALENDAR'
-    ].join('\r\n');
-    var blob = new Blob([ics], {type:'text/calendar'});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url; a.download = 'sabbir-and-shirin-wedding.ics';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  });
+  var calBtn = document.getElementById('addToCalendar');
+  if(calBtn){
+    calBtn.addEventListener('click', function(){
+      var ics = [
+        'BEGIN:VCALENDAR','VERSION:2.0','BEGIN:VEVENT',
+        'SUMMARY:Sabbir & Shirin\'s Wedding',
+        'DTSTART:20260912T163000',
+        'DTEND:20260912T230000',
+        'LOCATION: Cafe & Boat Club, ECB Chattar',
+        'DESCRIPTION:Ceremony followed by Jumma Salah.',
+        'END:VEVENT','END:VCALENDAR'
+      ].join('\r\n');
+      var blob = new Blob([ics], {type:'text/calendar'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'sabbir-and-shirin-wedding.ics';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
 
   /* ---------- RSVP form ---------- */
   var API_URL = 'https://script.google.com/macros/s/AKfycbwLawi8eqyK00cQqlT1BL3rrNHT7RsBSGOCBUFltbgfYn-bCkssT7uxU28hyLzZcsaecA/exec';
 
-var form = document.getElementById('rsvpForm');
-var thanks = document.getElementById('rsvpThanks');
-var errBox = document.getElementById('rsvpError');
-var submitBtn = form.querySelector('.submit-btn');
+  var form = document.getElementById('rsvpForm');
+  var thanks = document.getElementById('rsvpThanks');
+  var errBox = document.getElementById('rsvpError');
+  var submitBtn = form.querySelector('.submit-btn');
 
-// Decides whether the input is an email or a phone number
-function classifyContact(raw){
-  var v = (raw || '').trim();
-  if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
-    return { type: 'email', value: v };
+  // Decides whether the input is an email or a phone number
+  function classifyContact(raw){
+    var v = (raw || '').trim();
+    if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
+      return { type: 'email', value: v };
+    }
+    var cleaned = v.replace(/[\s\-().]/g, '');      // strip spaces, dashes, brackets
+    if(/^\+?\d{7,15}$/.test(cleaned)){               // 7-15 digits, optional leading +
+      return { type: 'phone', value: cleaned };
+    }
+    return null;
   }
-  var cleaned = v.replace(/[\s\-().]/g, '');      // strip spaces, dashes, brackets
-  if(/^\+?\d{7,15}$/.test(cleaned)){               // 7-15 digits, optional leading +
-    return { type: 'phone', value: cleaned };
+
+  function showError(msg){
+    errBox.textContent = msg;
+    errBox.style.display = 'block';
   }
-  return null;
-}
 
-function showError(msg){
-  errBox.textContent = msg;
-  errBox.style.display = 'block';
-}
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    errBox.style.display = 'none';
 
-form.addEventListener('submit', async function(e){
-  e.preventDefault();
-  errBox.style.display = 'none';
+    var name = document.getElementById('guestName').value.trim();
+    var contact = classifyContact(document.getElementById('guestContact').value);
 
-  var name = document.getElementById('guestName').value.trim();
-  var contact = classifyContact(document.getElementById('guestContact').value);
+    if(!name){ showError(t('errName')); return; }
+    if(!contact){ showError(t('errContact')); return; }
 
-  if(!name){ showError('Please enter your name.'); return; }
-  if(!contact){ showError('Please enter a valid email address or phone number.'); return; }
+    var attending = form.querySelector('input[name="attending"]:checked').value === 'yes';
+    var guests = document.getElementById('guestCount').value;
+    var note = document.getElementById('guestMsg').value.trim();
 
-  var attending = form.querySelector('input[name="attending"]:checked').value === 'yes';
-  var guests = document.getElementById('guestCount').value;
-  var note = document.getElementById('guestMsg').value.trim();
-
-  var payload = {
-    type: 'rsvp',
-    email: contact.type === 'email' ? contact.value : '',
-    phone: contact.type === 'phone' ? contact.value : '',
-    accepted: attending,
-    name: name,
-    guests: attending ? guests : 0,
-    message: note
-  };
-
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending...';
-
-  try {
-    var res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // avoids CORS preflight
-      body: JSON.stringify(payload)
-    });
-    var result = await res.json();
-    if(!result.ok){ throw new Error(result.error || 'Request failed'); }
-
-    form.style.display = 'none';
-    thanks.classList.add('show');
-  } catch(err){
-    showError('Sorry, something went wrong. Please try again.');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Send Reply';
-  }
-});
-
-
-/* ---------- Mode toggle ---------- */
-var anonForm = document.getElementById('anonForm');
-var anonThanks = document.getElementById('anonThanks');
-var modeBtns = document.querySelectorAll('.mode-btn');
-
-modeBtns.forEach(function(btn){
-  btn.addEventListener('click', function(){
-    modeBtns.forEach(function(b){
-      var on = (b === btn);
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-selected', on);
-    });
-    var showAnon = btn.dataset.target === 'anonForm';
-    // don't re-open a form that has already been submitted
-    form.hidden = showAnon;
-    anonForm.hidden = !showAnon;
-    if(showAnon){ form.style.display = ''; }
-  });
-});
-
-/* ---------- Anonymous message ---------- */
-async function getApproxLocation(){
-  try{
-    var ctrl = new AbortController();
-    var timer = setTimeout(function(){ ctrl.abort(); }, 4000);
-    var r = await fetch('https://ipwho.is/', { signal: ctrl.signal });
-    clearTimeout(timer);
-    var d = await r.json();
-    if(!d.success) return {};
-    return {
-      city: d.city, region: d.region, country: d.country,
-      latitude: d.latitude, longitude: d.longitude
+    var payload = {
+      type: 'rsvp',
+      email: contact.type === 'email' ? contact.value : '',
+      phone: contact.type === 'phone' ? contact.value : '',
+      accepted: attending,
+      name: name,
+      guests: attending ? guests : 0,
+      message: note
     };
-  } catch(e){
-    return {};   // location is optional; never block the message
-  }
-}
 
-var anonErr = document.getElementById('anonError');
-var anonBtn = anonForm.querySelector('.submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = t('sending');
 
-anonForm.addEventListener('submit', async function(e){
-  e.preventDefault();
-  anonErr.style.display = 'none';
+    try {
+      var res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // avoids CORS preflight
+        body: JSON.stringify(payload)
+      });
+      var result = await res.json();
+      if(!result.ok){ throw new Error(result.error || 'Request failed'); }
 
-  var msg = document.getElementById('anonMsg').value.trim();
-  if(!msg){
-    anonErr.textContent = 'Please write a message.';
-    anonErr.style.display = 'block';
-    return;
-  }
+      form.style.display = 'none';
+      thanks.classList.add('show');
+    } catch(err){
+      showError(t('errGeneric'));
+      submitBtn.disabled = false;
+      submitBtn.textContent = t('sendReply');
+    }
+  });
 
-  anonBtn.disabled = true;
-  anonBtn.textContent = 'Sending...';
 
-  try{
-    var location = await getApproxLocation();
-    var res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ type: 'anonymous', message: msg, location: location })
+  /* ---------- Mode toggle ---------- */
+  var anonForm = document.getElementById('anonForm');
+  var anonThanks = document.getElementById('anonThanks');
+  var modeBtns = document.querySelectorAll('.mode-btn');
+
+  modeBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      modeBtns.forEach(function(b){
+        var on = (b === btn);
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on);
+      });
+      var showAnon = btn.dataset.target === 'anonForm';
+      // don't re-open a form that has already been submitted
+      form.hidden = showAnon;
+      anonForm.hidden = !showAnon;
+      if(showAnon){ form.style.display = ''; }
     });
-    var result = await res.json();
-    if(!result.ok){ throw new Error(result.error || 'Request failed'); }
+  });
 
-    anonForm.style.display = 'none';
-    anonThanks.classList.add('show');
-  } catch(err){
-    anonErr.textContent = 'Sorry, something went wrong. Please try again.';
-    anonErr.style.display = 'block';
-    anonBtn.disabled = false;
-    anonBtn.textContent = 'Send Message';
+  /* ---------- Anonymous message ---------- */
+  async function getApproxLocation(){
+    try{
+      var ctrl = new AbortController();
+      var timer = setTimeout(function(){ ctrl.abort(); }, 4000);
+      var r = await fetch('https://ipwho.is/', { signal: ctrl.signal });
+      clearTimeout(timer);
+      var d = await r.json();
+      if(!d.success) return {};
+      return {
+        city: d.city, region: d.region, country: d.country,
+        latitude: d.latitude, longitude: d.longitude
+      };
+    } catch(e){
+      return {};   // location is optional; never block the message
+    }
   }
-});
+
+  var anonErr = document.getElementById('anonError');
+  var anonBtn = anonForm.querySelector('.submit-btn');
+
+  anonForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    anonErr.style.display = 'none';
+
+    var msg = document.getElementById('anonMsg').value.trim();
+    if(!msg){
+      anonErr.textContent = t('errAnon');
+      anonErr.style.display = 'block';
+      return;
+    }
+
+    anonBtn.disabled = true;
+    anonBtn.textContent = t('sending');
+
+    try{
+      var location = await getApproxLocation();
+      var res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ type: 'anonymous', message: msg, location: location })
+      });
+      var result = await res.json();
+      if(!result.ok){ throw new Error(result.error || 'Request failed'); }
+
+      anonForm.style.display = 'none';
+      anonThanks.classList.add('show');
+    } catch(err){
+      anonErr.textContent = t('errGeneric');
+      anonErr.style.display = 'block';
+      anonBtn.disabled = false;
+      anonBtn.textContent = t('sendMsg');
+    }
+  });
+
   /* ---------- Ambient falling leaves ---------- */
   var canvas = document.getElementById('leafCanvas');
   var ctx = canvas.getContext('2d');
@@ -839,6 +1236,8 @@ anonForm.addEventListener('submit', async function(e){
     requestAnimationFrame(animate);
   }
   if(!prefersReduced){ requestAnimationFrame(animate); }
+
+  applyLang();
 
 })();
 </script>
