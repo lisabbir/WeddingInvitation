@@ -254,6 +254,8 @@
     text-transform:uppercase; transition:.35s var(--ease);
   }
   .calendar-btn:hover{ background:var(--forest); color:var(--ivory); }
+  a.calendar-btn{ text-decoration:none; border-radius:4px; margin-top:18px; }
+  .reception-note{ margin:52px 0 0; font-style:italic; font-size:1.15rem; color:var(--ink); opacity:.85; }
 
   /* ---- Countdown ---- */
   .countdown-section{ background:var(--forest); color:var(--ivory); }
@@ -549,6 +551,9 @@
       </div>
 
       <!-- <button class="calendar-btn reveal" id="addToCalendar">Add to Calendar</button> -->
+
+      <p class="reception-note reveal" data-i18n="recNote">You are also warmly invited to our Wedding Reception.</p>
+      <a class="calendar-btn reveal" href="reception.html?from=wedding" data-i18n="recBtn">View Reception Invitation</a>
     </div>
   </section>
 
@@ -730,6 +735,7 @@
       dateH:'Date', dateVal:'October 23, 2026', dateDay:'Friday',
       gatherH:'Wedding Gathering', gatherVal:'2:00 PM in the early afternoon', gatherNote:'After Jummah Salah.',
       placeH:'Place', placeVal:'Lunch & Celebration to follow.', venue:'Cafe & Boat Club',
+      recNote:'You are also warmly invited to our Wedding Reception.', recBtn:'View Reception Invitation',
       cdEyebrow:'Counting Down', cdTitle:'Until We Say “Kabul”',
       days:'Days', hours:'Hours', mins:'Minutes', secs:'Seconds',
       ordEyebrow:'The Order of the Day', ordTitle:'How It Will Unfold',
@@ -793,6 +799,8 @@
       placeH: 'স্থান',
       placeVal: 'মধ্যাহ্নভোজ ও কুশলাদি বিনিময়',
       venue: 'ক্যাফে অ্যান্ড বোট ক্লাব',
+      recNote: 'আমাদের বিবাহোত্তর সংবর্ধনা অনুষ্ঠানেও আপনি সাদরে আমন্ত্রিত।',
+      recBtn: 'সংবর্ধনার আমন্ত্রণপত্র দেখুন',
 
       cdEyebrow: 'সময়ের অপেক্ষা',
       cdTitle: 'কবুল বলার অপেক্ষায়',
@@ -1071,7 +1079,8 @@
     if(!contact){ showError(t('errContact')); return; }
 
     var attending = form.querySelector('input[name="attending"]:checked').value === 'yes';
-    var guests = document.getElementById('guestCount').value;
+    var guestCount = document.getElementById('guestCount');
+    var guests = guestCount ? guestCount.value : 1;
     var note = document.getElementById('guestMsg').value.trim();
 
     var payload = {
