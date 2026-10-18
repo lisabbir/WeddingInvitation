@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sabbir Weds Shirin</title>
+<link rel="icon" type="image/png" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cinzel:wght@500;600&display=swap&family=Great+Vibes&family=Allura" rel="stylesheet">
@@ -104,6 +106,15 @@
     z-index:3;
   }
   .envelope.open .envelope-flap{ transform:rotateX(178deg); }
+  /* Monogram watermark pressed into the flap, tinted to antique gold */
+  .envelope-flap::before{
+    content:""; position:absolute; left:50%; top:7%;
+    width:22%; aspect-ratio:1/1; transform:translateX(-50%);
+    background:url("icons/favicon.png") center/contain no-repeat;
+    filter:sepia(1) saturate(.75) brightness(1.15) drop-shadow(0 1px 0 rgba(255,255,255,.75));
+    opacity:.22;
+    pointer-events:none;
+  }
 
   .envelope-card{
     position:absolute; left:8%; right:8%; bottom:-6%;
@@ -431,6 +442,22 @@
   .fam-list{ margin:0; text-align:left; }
   .fam-list dt{ font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-top:18px; }
   .fam-list dd{ margin:4px 0 0; font-size:1.2rem; color:var(--ink); line-height:1.45; }
+  /* ============ MAP POPUP ============ */
+  .detail-card.clickable{
+    cursor:pointer;
+    transition:opacity .9s var(--ease), transform .35s var(--ease);
+  }
+  .detail-card.clickable:hover{ transform:translateY(-4px); }
+  .detail-card .map-hint{ display:block; margin-top:10px; font-style:italic; opacity:.6; font-size:.85rem; }
+  .modal-card.map-card{ width:min(100%,640px); padding:40px 18px 26px; }
+  .map-frame{
+    margin-top:18px; aspect-ratio:4/3; width:100%;
+    border:1px solid var(--gold-light); border-radius:6px; overflow:hidden;
+    background:var(--ivory-deep);
+  }
+  .map-frame iframe{ width:100%; height:100%; border:0; display:block; }
+  .map-card a.calendar-btn{ text-decoration:none; margin-top:22px; }
+
   /* ============ BENGALI TYPOGRAPHY ============ */
 
   html[lang="bn"] body,
@@ -542,11 +569,12 @@
           <p data-i18n="gatherVal">2:00 PM in the early afternoon</p>
           <small data-i18n="gatherNote">Followed by Jummah Salah.</small>
         </div>
-        <div class="detail-card reveal">
+        <div class="detail-card reveal clickable" id="placeCard" role="button" tabindex="0" aria-haspopup="dialog">
           <div class="icon">✦</div>
           <h3 data-i18n="placeH">Place</h3>
           <p data-i18n="placeVal">Lunch &amp; Celebration to follow.</p>
           <a href="https://share.google/25DVzkBbDFgZxDX5b" target="_blank" rel="noopener noreferrer"><small data-i18n="venue">Cafe &amp; Boat Club</small></a>
+          <small class="map-hint" data-i18n="tapMap">Tap to view map</small>
         </div>
       </div>
 
@@ -680,6 +708,21 @@
 
 </main>
 
+<!-- ============ MAP POPUP ============ -->
+<div class="modal" id="mapModal" hidden>
+  <div class="modal-backdrop" data-close="1"></div>
+  <div class="modal-card map-card" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
+    <button type="button" class="modal-close" data-close="1" aria-label="Close">&times;</button>
+    <p class="eyebrow" data-i18n="placeH">Place</p>
+    <h3 class="script modal-name" id="mapTitle" data-i18n="venue"></h3>
+    <div class="map-frame">
+      <!-- src is set on first open so the map only loads when needed -->
+      <iframe data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3160.405867237656!2d90.3946837!3d23.8217122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c6e7e6fdefe9%3A0x6b3812cee47db49f!2sCafe%20%26%20Boat%20Club!5e1!3m2!1sen!2sbd!4v1792182142461!5m2!1sen!2sbd" title="Venue map" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <a class="calendar-btn" href="https://share.google/25DVzkBbDFgZxDX5b" target="_blank" rel="noopener noreferrer" data-i18n="openMaps">Open in Google Maps</a>
+  </div>
+</div>
+
 <!-- ============ FAMILY POPUP ============ -->
 <div class="modal" id="famModal" hidden>
   <div class="modal-backdrop" data-close="1"></div>
@@ -735,6 +778,7 @@
       dateH:'Date', dateVal:'October 23, 2026', dateDay:'Friday',
       gatherH:'Wedding Gathering', gatherVal:'2:00 PM in the early afternoon', gatherNote:'After Jummah Salah.',
       placeH:'Place', placeVal:'Lunch & Celebration to follow.', venue:'Cafe & Boat Club',
+      tapMap:'Tap to view map', openMaps:'Open in Google Maps',
       recNote:'You are also warmly invited to our Wedding Reception.', recBtn:'View Reception Invitation',
       cdEyebrow:'Counting Down', cdTitle:'Until We Say “Kabul”',
       days:'Days', hours:'Hours', mins:'Minutes', secs:'Seconds',
@@ -797,6 +841,8 @@
       gatherVal: 'দুপুর ২টা',
       gatherNote: 'জুমার নামাজের পর',
       placeH: 'স্থান',
+      tapMap: 'মানচিত্র দেখতে ট্যাপ করুন',
+      openMaps: 'গুগল ম্যাপে খুলুন',
       placeVal: 'মধ্যাহ্নভোজ ও কুশলাদি বিনিময়',
       venue: 'ক্যাফে অ্যান্ড বোট ক্লাব',
       recNote: 'আমাদের বিবাহোত্তর সংবর্ধনা অনুষ্ঠানেও আপনি সাদরে আমন্ত্রিত।',
@@ -939,6 +985,7 @@
   function closeInvitation(){
     clearTimeout(openTimer);
     if(!modal.hidden){ closeModal(); }
+    if(!mapModal.hidden){ closeMap(); }
     cardOpen = false;
     langBtn.classList.remove('waiting');
     updateLangBtn();
@@ -1000,6 +1047,41 @@
   });
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape' && !modal.hidden){ closeModal(); }
+  });
+
+  /* ---------- Map popup ----------
+     Clicking the Place card opens the embedded map; clicking the venue link itself
+     still opens Google Maps directly. */
+  var mapModal = document.getElementById('mapModal');
+  var placeCard = document.getElementById('placeCard');
+  var mapFocus = null;
+
+  function openMap(){
+    mapFocus = document.activeElement;
+    var frame = mapModal.querySelector('iframe');
+    if(!frame.getAttribute('src')){ frame.src = frame.dataset.src; }
+    mapModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    mapModal.querySelector('.modal-close').focus();
+  }
+  function closeMap(){
+    mapModal.hidden = true;
+    document.body.style.overflow = 'auto';
+    if(mapFocus){ mapFocus.focus(); }
+  }
+  placeCard.addEventListener('click', function(e){
+    if(e.target.closest('a')){ return; }   // venue link opens Google Maps as before
+    openMap();
+  });
+  placeCard.addEventListener('keydown', function(e){
+    if(e.target !== placeCard){ return; }
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openMap(); }
+  });
+  mapModal.addEventListener('click', function(e){
+    if(e.target.closest('[data-close]')){ closeMap(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !mapModal.hidden){ closeMap(); }
   });
 
   /* ---------- Countdown ---------- */
